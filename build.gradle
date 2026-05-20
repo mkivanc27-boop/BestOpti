@@ -1,21 +1,15 @@
-repositories {
-    maven { url = "https://maven.terraformersmc.com/" } // ModMenu için
-    maven { url = "https://maven.shedaniel.me/" }     // Cloth Config için
-    maven { url = "https://maven.kimq.com/" }         // Genelde performans modları burada
+plugins {
+    id 'fabric-loom' version '1.7-SNAPSHOT'
 }
 
 dependencies {
-    // Minecraft ve Fabric
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.0"
-
-    // Performans Modlarını Projene Dahil Et (Compile)
+    
+    // Performans modlarını projeye dahil et
     modImplementation "maven.modrinth:lithium:1.21.8"
     modImplementation "maven.modrinth:ferritecore:7.0.0"
     modImplementation "maven.modrinth:entity-culling:1.7.0"
     modImplementation "maven.modrinth:modernfix:5.19.0"
-    
-    // Kendi UI/Menu işlemlerin için
-    modImplementation "com.terraformersmc:modmenu:11.0.0"
 }
