@@ -3,9 +3,14 @@
   "package": "com.mustafa.optibest.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EntityRenderMixin",
-    "ParticleManagerMixin",
-    "ChunkRenderMixin",
+    "OptiBestCullingMixin",
+    "OptiBestEntityRendererMixin",
+    "OptiBestFpsMixin",
+    "OptiBestLightMixin",
+    "OptiBestRendererMixin",
     "WorldTickMixin"
-  ]
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
