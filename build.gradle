@@ -1,5 +1,4 @@
 plugins {
-    // Loom sürümünü 1.11.8 veya üzeri yapıyoruz
     id 'fabric-loom' version '1.11.8'
 }
 
@@ -8,16 +7,12 @@ group = "com.mustafa.optibest"
 
 repositories {
     mavenCentral()
-    flatDir { dirs 'libs' }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.0"
-    
-    // Libs klasöründeki modları al
-    modImplementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 java {
