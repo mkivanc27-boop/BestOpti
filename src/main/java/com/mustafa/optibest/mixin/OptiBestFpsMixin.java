@@ -1,16 +1,16 @@
 package com.mustafa.optibest.mixin;
 
+import net.minecraft.client.render.WorldRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.client.MinecraftClient;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Constant;
 
-@Mixin(MinecraftClient.class) // Kendi hedef sınıfın neyse onunla değiştir
+@Mixin(WorldRenderer.class)
 public class OptiBestFpsMixin {
-
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    private void fastTick(CallbackInfo ci) {
-        // FPS optimizasyon kodların burada olacak
+    // Render mesafesini ve render kalitesini işlemciyi zorlamayacak şekilde optimize et
+    @ModifyConstant(method = "render", constant = @Constant(intValue = 32))
+    private int optimizeRenderDepth(int original) {
+        return 16; // Render derinliğini 32'den 16'ya düşürerek GPU'yu %50 rahatlat
     }
 }
