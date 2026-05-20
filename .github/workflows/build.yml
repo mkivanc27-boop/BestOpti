@@ -14,16 +14,16 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Install Gradle
+      # gradlew dosyasını bulmaya çalış, yoksa hata verme devam et
+      - name: Build with Gradle
         run: |
-          # Gradlew yoksa, sistemi kuruyoruz
-          gradle wrapper
-          chmod +x gradlew
-
-      - name: Clean and Build
-        run: |
-          rm -rf .gradle/loom-cache
-          ./gradlew clean build
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+            ./gradlew clean build
+          else
+            echo "gradlew bulunamadı, sistem gradle kullanılıyor..."
+            gradle clean build
+          fi
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
