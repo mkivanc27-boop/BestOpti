@@ -3,19 +3,32 @@
   "package": "com.mustafa.optibest.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "ParticleOptimizeMixin",
-    "ChunkRenderMixin",
     "BlockEntityCullingMixin",
+    "BlockEntityRenderMixin",
+    "BufferBuilderMixin",
+    "ChunkBatchMixin",
+    "ChunkRenderMixin",
+    "ClientPlayerTickMixin",
     "ClientWorldMixin",
+    "EntityCollisionMixin",
     "EntityLogicMixin",
+    "InputOptimizationMixin",
+    "LightingEngineMixin",
+    "MemoryManagerMixin",
     "ModelUpdateMixin",
+    "NetworkPacketMixin",
+    "OptiBestCullingMixin",
+    "OptiBestEntityRendererMixin",
+    "OptiBestFpsMixin",
+    "OptiBestLightMixin",
+    "ParticleOptimizeMixin",
+    "ParticleSystemMixin",
+    "PathfindingMixin",
+    "RenderTickCounterMixin",
+    "ResourceReloadMixin",
     "SoundOptimizationMixin",
     "TextureLoadingMixin",
-    "InputOptimizationMixin",
-    "ResourceReloadMixin",
+    "ThreadTweakMixin",
     "WorldTickMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+  ]
 }
