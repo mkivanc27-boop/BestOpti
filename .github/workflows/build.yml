@@ -14,12 +14,20 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build and Clean Cache
+      - name: Force Clean and Build
         run: |
-          # Önceki tüm hatalı yapılandırmaları ve cache'i siliyoruz
-          rm -rf .gradle/loom-cache
-          rm -rf ~/.gradle/caches/fabric-loom
-          
-          # Gradle'ı çalıştır
-          ./gradlew clean build || gradle clean build
+          # 1. Gradle cache'ini tamamen sil
+          rm -rf ~/.gradle/caches/
+          # 2. Proje içi cache'leri sil
+          rm -rf .gradle/
+          # 3. Build klasörünü temizle
+          rm -rf build/
+          # 4. Sistemdeki gradle ile derle
+          gradle clean build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: OptiBest-Mod
+          path: build/libs/
           
