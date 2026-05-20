@@ -1,25 +1,33 @@
-name: build
-on: [push]
+name: Build Mod
+on: [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
-      
-      # Gradle Wrapper yerine doğrudan Gradle'ı kuruyoruz
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
 
-      - name: Build with Gradle
-        run: gradle build 
-        
-      - name: Upload
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Clean and Build
+        run: |
+          # Eski ve bozuk önbelleği tamamen yok ediyoruz
+          rm -rf .gradle/loom-cache
+          rm -rf build/
+          # Şimdi temiz bir şekilde derliyoruz
+          ./gradlew clean build
+
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: OptiBest-Mod
-          path: build/libs/*.jar
+          path: build/libs/
           
