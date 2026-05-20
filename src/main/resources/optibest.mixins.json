@@ -3,7 +3,9 @@
   "package": "com.mustafa.optibest.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "MinecraftClientMixin"
+    "EntityRenderMixin",
+    "ParticleManagerMixin",
+    "ChunkRenderMixin",
+    "WorldTickMixin"
   ]
 }
-
