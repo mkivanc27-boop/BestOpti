@@ -1,27 +1,42 @@
 package com.mustafa.optibest.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.render.chunk.ChunkBuilder;
+import net.minecraft.util.math.Box;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(WorldRenderer.class)
+@Mixin(ChunkBuilder.BuiltChunk.class)
 public class ChunkRenderMixin {
 
-    @Inject(method = "renderChunks", at = @At("HEAD"), cancellable = true)
-    private void skipOutOfFrustumChunks(CallbackInfo ci) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client.world == null || client.player == null) return;
+    @Inject(
+        method = "isVisible",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private void frustumCullChunk(Frustum frustum, CallbackInfoReturnable<Boolean> cir) {
+        ChunkBuilder.BuiltChunk self = (ChunkBuilder.BuiltChunk)(Object)this;
 
-        // Render distance'ı cihaza göre dinamik ayarla
-        int currentRenderDistance = client.options.getViewDistance().getValue();
-        if (currentRenderDistance > 8) {
-            client.options.getViewDistance().setValue(8);
+        // Chunk'ın dünya koordinatlarındaki bounding box'ını al
+        Box boundingBox = new Box(
+            self.getOrigin().getX(),
+            self.getOrigin().getY(),
+            self.getOrigin().getZ(),
+            self.getOrigin().getX() + 16,
+            self.getOrigin().getY() + 16,
+            self.getOrigin().getZ() + 16
+        );
+
+        // Frustum dışındaysa render etme
+        if (!frustum.isVisible(boundingBox)) {
+            cir.setReturnValue(false); // Görünmüyor, atla
+            return;
         }
+
+        // Görünüyorsa normal devam et
+        cir.setReturnValue(true);
     }
 }
