@@ -16,10 +16,10 @@ jobs:
 
       - name: Build and Clean Cache
         run: |
-          # En kritik kısım burası: Minecraft kurulum dosyalarını siliyoruz
-          rm -rf ~/.gradle/caches/fabric-loom
+          # Önceki tüm hatalı yapılandırmaları ve cache'i siliyoruz
           rm -rf .gradle/loom-cache
+          rm -rf ~/.gradle/caches/fabric-loom
           
-          # Şimdi derlemeye zorluyoruz
-          gradle clean build
+          # Gradle'ı çalıştır
+          ./gradlew clean build || gradle clean build
           
