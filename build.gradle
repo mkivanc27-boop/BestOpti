@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version "${loom_version}"
+    id 'fabric-loom' version '1.9.2'
 }
 
 version = "1.0.0"
@@ -11,12 +11,12 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    minecraft "com.mojang:minecraft:1.21.8"
+    mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.16.10"
     
-    // Libs klasöründekileri al
-    modImplementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Libs'i şimdilik kapattık, sorun oradaysa build alacak!
+    // modImplementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 java {
