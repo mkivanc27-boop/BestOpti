@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "OptiBest"
+rootProject.name = "OptiBest" 
