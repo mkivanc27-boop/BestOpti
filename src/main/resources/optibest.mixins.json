@@ -24,7 +24,6 @@
     "ParticleOptimizeMixin",
     "ParticleSystemMixin",
     "PathfindingMixin",
-    "RenderTickCounterMixin",
     "ResourceReloadMixin",
     "SoundOptimizationMixin",
     "TextureLoadingMixin",
