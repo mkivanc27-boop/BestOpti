@@ -13,21 +13,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: 'gradle'
 
-      - name: Force Clean and Build
+      - name: Build
         run: |
-          # 1. Gradle cache'ini tamamen sil
+          # 1.21.8 için cache temizliği
           rm -rf ~/.gradle/caches/
-          # 2. Proje içi cache'leri sil
           rm -rf .gradle/
-          # 3. Build klasörünü temizle
-          rm -rf build/
-          # 4. Sistemdeki gradle ile derle
           gradle clean build
-
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: OptiBest-Mod
-          path: build/libs/
           
