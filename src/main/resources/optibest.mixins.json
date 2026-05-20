@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "com.mustafa.optibest.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MinecraftClientMixin"
+  ]
+}
+
