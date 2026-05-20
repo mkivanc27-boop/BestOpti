@@ -1,13 +1,17 @@
 package com.mustafa.optibest;
 
 import net.fabricmc.api.ModInitializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OptiBest implements ModInitializer {
+    public static final String MOD_ID = "optibest";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
     @Override
     public void onInitialize() {
-        // Ayarlar menüsünü (MidnightLib) başlatır
-        OptiBestConfig.init("optibest", OptiBestConfig.class);
+        // Eski MidnightConfig (OptiBestConfig.init) satırını tamamen sildik!
         
-        System.out.println("OptiBest Modu basariyla aktif edildi! FPS ucurmaya hazir.");
+        LOGGER.info("OptiBest Modu basariyla yuklendi! Saf FPS optimizasyonu devrede.");
     }
 }
