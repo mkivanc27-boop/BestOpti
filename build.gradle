@@ -8,15 +8,14 @@ group = "com.mustafa.optibest"
 repositories {
     mavenCentral()
     maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://maven.terraformersmc.com/" } // MidnightLib için gerekli
 }
 
 dependencies {
-    // Sadece oyunun çekirdeği, mod falan yok
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.10"
-}
-
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    
+    // İşte kütüphaneleri buraya ekliyoruz:
+    modImplementation "maven.modrinth:midnightlib:1.9.2"
 }
