@@ -6,13 +6,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-// Sınıf ismi dosya adıyla aynı olmalı!
 @Mixin(ChunkRendererRegion.class)
 public class OptiBestCullingMixin {
 
     @Inject(method = "shouldShow", at = @At("HEAD"), cancellable = true)
     private void optimizeChunkRendering(CallbackInfoReturnable<Boolean> cir) {
-        // Burada kendi optimizasyon mantığın olacak
-        // cir.setReturnValue(true); // Örnek
+        // Şu an boş, sadece çalışıp çalışmadığını test ediyoruz
     }
 }
