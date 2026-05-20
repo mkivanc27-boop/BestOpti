@@ -7,14 +7,27 @@ group = "com.mustafa.optibest"
 
 repositories {
     mavenCentral()
+    // Menü kütüphaneleri için gerekli repo
+    maven { url "https://api.modrinth.com/maven" }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.0"
+
+    // Menü ve Ayarlar için (Dışarıdan çekecek)
+    modImplementation "maven.modrinth:midnightlib:1.9.2"
+    modImplementation "maven.modrinth:modmenu:11.0.0"
 }
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
