@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.8-SNAPSHOT' // Sürümü güncelledik
+    id 'fabric-loom' version '1.8-SNAPSHOT'
 }
 
 version = "1.0.0"
@@ -7,8 +7,7 @@ group = "com.mustafa.optibest"
 
 repositories {
     mavenCentral()
-    maven { url = "https://api.modrinth.com/maven" }
-    maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://api.modrinth.com/maven" } // Modrinth deposu burası
 }
 
 dependencies {
@@ -16,11 +15,11 @@ dependencies {
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.0"
     
-    // Performans modları
-    modImplementation "maven.modrinth:lithium:1.21.8"
-    modImplementation "maven.modrinth:ferritecore:7.0.0"
-    modImplementation "maven.modrinth:entity-culling:1.7.0"
-    modImplementation "maven.modrinth:modernfix:5.19.0"
+    // Doğru Modrinth formatı: modrinth.maven:modid:version
+    modImplementation "maven.modrinth:lithium:mc1.21.8-0.14.3"
+    modImplementation "maven.modrinth:ferrite-core:7.0.0-fabric"
+    modImplementation "maven.modrinth:entityculling:1.7.0-mc1.21.8"
+    modImplementation "maven.modrinth:modernfix:5.19.0+mc1.21.8"
 }
 
 java {
