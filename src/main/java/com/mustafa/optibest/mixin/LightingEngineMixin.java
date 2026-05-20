@@ -1,17 +1,29 @@
 package com.mustafa.optibest.mixin;
 
-import net.minecraft.world.chunk.light.LightStorage;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.world.chunk.light.LightingProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(LightStorage.class)
+@Mixin(LightingProvider.class)
 public class LightingEngineMixin {
-    @Inject(method = "updateLight", at = @At("HEAD"), cancellable = true)
-    private void skipLightUpdates(CallbackInfo ci) {
-        // Işık güncellemelerini her zaman yapma, performansı gözle görülür arttırır.
-        ci.cancel(); 
+
+    private int lightUpdateCounter = 0;
+
+    @Inject(method = "doLightUpdates", at = @At("HEAD"), cancellable = true)
+    private void throttleLightUpdates(CallbackInfoReturnable<Integer> cir) {
+        lightUpdateCounter++;
+
+        // Her 3 frame'de bir ışık güncellemesi yap
+        // Görsel fark minimum, CPU kazanımı yüksek
+        if (lightUpdateCounter % 3 != 0) {
+            cir.setReturnValue(0); // Bu frame'i atla
+            return;
+        }
+
+        // Her 3 frame'de bir normal çalış
+        lightUpdateCounter = 0;
     }
 }
-
