@@ -1,17 +1,23 @@
 {
   "schemaVersion": 1,
   "id": "optibest",
-  "version": "1.0.0",
+  "version": "${version}",
   "name": "OptiBest",
-  "description": "Fps Arttırıcı Mod (Maded By Mustafaisbestpvp On Tiktok)",
+  "description": "Fps Arttırıcı Mod (Made By Mustafaisbestpvp On Tiktok)",
   "authors": ["Mustafa"],
   "entrypoints": {
-    "main": ["com.mustafa.optibest.OptiBest"]
+    "main": [
+      "com.mustafa.optibest.OptiBest"
+    ]
   },
-  "mixins": ["optibest.mixins.json"],
+  "mixins": [
+    "optibest.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": "~1.21.8"
-  }
+    "minecraft": "~1.21.8",
+    "midnightlib": "*",
+    "modmenu": "*"
+  },
+  "license": "MIT"
 }
-
