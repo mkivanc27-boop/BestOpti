@@ -3,11 +3,16 @@
   "package": "com.mustafa.optibest.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "OptiBestCullingMixin",
-    "OptiBestEntityRendererMixin",
-    "OptiBestFpsMixin",
-    "OptiBestLightMixin",
-    "OptiBestRendererMixin",
+    "ParticleOptimizeMixin",
+    "ChunkRenderMixin",
+    "BlockEntityCullingMixin",
+    "ClientWorldMixin",
+    "EntityLogicMixin",
+    "ModelUpdateMixin",
+    "SoundOptimizationMixin",
+    "TextureLoadingMixin",
+    "InputOptimizationMixin",
+    "ResourceReloadMixin",
     "WorldTickMixin"
   ],
   "injectors": {
