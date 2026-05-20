@@ -5,20 +5,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle'
 
-      - name: Build
+      - name: Clean and Build
         run: |
-          # 1.21.8 için cache temizliği
-          rm -rf ~/.gradle/caches/
-          rm -rf .gradle/
-          gradle clean build
+          # 1. Her şeyi sil
+          rm -rf .gradle
+          rm -rf build
+          # 2. Fabric Loom ayarlarını temizle
+          rm -rf ~/.gradle/caches/fabric-loom
+          # 3. Sıfırdan kur
+          gradle clean build --no-daemon --refresh-dependencies
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: OptiBest-Build
+          path: build/libs/
           
