@@ -1,16 +1,16 @@
 package com.mustafa.optibest.mixin;
 
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.client.MinecraftClient;
 
-@Mixin(World.class)
+@Mixin(MinecraftClient.class) // Kendi hedef sınıfın neyse onunla değiştir
 public class OptiBestFpsMixin {
-    @Inject(method = "tickBlockEntities", at = @At("HEAD"), cancellable = true)
+
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void fastTick(CallbackInfo ci) {
-        // Blokların boş yere "update" almasını engelle
+        // FPS optimizasyon kodların burada olacak
     }
 }
-
