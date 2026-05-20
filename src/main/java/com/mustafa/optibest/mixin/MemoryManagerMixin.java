@@ -8,10 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SystemDetails.class)
 public class MemoryManagerMixin {
+    // String, String yapısına çevirdik, hata buradan kaynaklanıyordu.
     @Inject(method = "addSection", at = @At("HEAD"), cancellable = true)
-    private void skipSystemLogs(String name, Object value, CallbackInfo ci) {
-        // Arka planda log yazan gereksiz sistem detaylarını iptal et.
+    private void skipSystemLogs(String name, String value, CallbackInfo ci) {
         ci.cancel();
     }
 }
-
