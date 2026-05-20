@@ -14,20 +14,12 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      # gradlew dosyasını bulmaya çalış, yoksa hata verme devam et
-      - name: Build with Gradle
+      - name: Build and Clean Cache
         run: |
-          if [ -f "./gradlew" ]; then
-            chmod +x ./gradlew
-            ./gradlew clean build
-          else
-            echo "gradlew bulunamadı, sistem gradle kullanılıyor..."
-            gradle clean build
-          fi
-
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: OptiBest-Mod
-          path: build/libs/
+          # En kritik kısım burası: Minecraft kurulum dosyalarını siliyoruz
+          rm -rf ~/.gradle/caches/fabric-loom
+          rm -rf .gradle/loom-cache
+          
+          # Şimdi derlemeye zorluyoruz
+          gradle clean build
           
