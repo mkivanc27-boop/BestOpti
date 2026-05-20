@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.13.469'
+    id 'fabric-loom' version '1.11.8'
 }
 
 version = "1.0.0"
@@ -7,15 +7,15 @@ group = "com.mustafa.optibest"
 
 repositories {
     mavenCentral()
+    maven { url = "https://maven.fabricmc.net/" }
 }
 
 dependencies {
-    // Minecraft temeli
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.0"
 
-    // Libs klasöründeki ModMenu ve MidnightLib dosyalarını kullanır
+    // Manuel kütüphaneler (libs klasöründekiler)
     modImplementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
