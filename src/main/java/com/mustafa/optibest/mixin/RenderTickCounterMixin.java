@@ -1,21 +1,27 @@
 package com.mustafa.optibest.mixin;
 
-import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(RenderTickCounter.Dynamic.class)
-public class RenderTickCounterMixin {
+@Mixin(GameRenderer.class)
+public class ChunkRenderMixin {
 
-    @Inject(method = "beginRenderTick(J)I", at = @At("HEAD"), cancellable = true)
-    private void capRenderTicks(long timeMillis, CallbackInfoReturnable<Integer> cir) {
-        // Tek frame'de çok fazla tick birikimini engelle
-        // Lag spike'larında oyunun "zıplamasını" önler
-        int ticks = cir.getReturnValue();
-        if (ticks != null && ticks > 8) {
-            cir.setReturnValue(8);
+    @Inject(method = "render", at = @At("HEAD"))
+    private void optimizeRender(CallbackInfo ci) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client == null || client.world == null) return;
+
+        int fps = client.getCurrentFps();
+        int dist = client.options.getViewDistance().getValue();
+
+        if (fps < 20 && dist > 6) {
+            client.options.getViewDistance().setValue(6);
+        } else if (fps < 30 && dist > 8) {
+            client.options.getViewDistance().setValue(8);
         }
     }
 }
