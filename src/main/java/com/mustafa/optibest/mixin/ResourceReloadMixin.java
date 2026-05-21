@@ -14,8 +14,10 @@ public class ResourceReloadMixin {
         method = "reloadResources(Z)Ljava/util/concurrent/CompletableFuture;",
         at = @At("HEAD")
     )
-    private void beforeReload(boolean force,
+    private void beforeReload(
+            boolean force,
             CallbackInfoReturnable<CompletableFuture<?>> cir) {
+        // Reload öncesi GC çalıştır — eski texture/model nesnelerini temizle
         System.gc();
     }
 }
