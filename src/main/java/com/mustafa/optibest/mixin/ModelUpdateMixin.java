@@ -1,6 +1,7 @@
 package com.mustafa.optibest.mixin;
 
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.Frustum;
 import net.minecraft.entity.Entity;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +14,7 @@ public class ModelUpdateMixin {
 
     @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
     private <E extends Entity> void skipFarModelUpdates(
-            E entity, net.minecraft.client.frustum.Frustum frustum,
+            E entity, Frustum frustum,
             double x, double y, double z,
             CallbackInfoReturnable<Boolean> cir) {
 
@@ -26,7 +27,6 @@ public class ModelUpdateMixin {
             client.player.getZ()
         );
 
-        // 96 bloktan uzaktaki entity modelini render etme
         if (distSq > 96 * 96) {
             cir.setReturnValue(false);
         }
