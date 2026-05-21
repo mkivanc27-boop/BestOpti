@@ -17,15 +17,19 @@ public class OptiBestCullingMixin {
             return;
         }
 
-        // Dejenere box kontrolü (sıfır boyutlu veya negatif)
-        if (box.getXLength() < 0 || box.getYLength() < 0 || box.getZLength() < 0) {
+        // 1.21'de Box field'ları doğrudan erişilir, getter yok
+        double xLen = box.maxX - box.minX;
+        double yLen = box.maxY - box.minY;
+        double zLen = box.maxZ - box.minZ;
+
+        // Negatif veya sıfır boyutlu box
+        if (xLen <= 0 || yLen <= 0 || zLen <= 0) {
             cir.setReturnValue(false);
             return;
         }
 
-        // Çok küçük box'ları (0.01 bloktan küçük) atla — görünmez zaten
-        double volume = box.getXLength() * box.getYLength() * box.getZLength();
-        if (volume < 0.0001) {
+        // Çok küçük box'ları atla
+        if (xLen * yLen * zLen < 0.0001) {
             cir.setReturnValue(false);
         }
     }
