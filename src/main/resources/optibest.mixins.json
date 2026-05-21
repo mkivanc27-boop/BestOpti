@@ -16,6 +16,16 @@
     "ModelUpdateMixin",
     "NetworkPacketMixin",
     "OptiBestCullingMixin",
+    "ShadowSkipMixin",
+    "NametagSkipMixin",
+    "WeatherThrottleMixin",
+    "CloudSkipMixin",
+    "HudThrottleMixin",
+    "ItemFrameSkipMixin",
+    "TextureGCMixin",
+    "SpectatorSkipMixin",
+    "TickSkipMixin",
+    "ChunkCullMixin",
     "OptiBestEntityRendererMixin",
     "OptiBestFpsMixin",
     "OptiBestLightMixin",
@@ -24,6 +34,7 @@
     "ResourceReloadMixin",
     "SoundOptimizationMixin",
     "ThreadTweakMixin",
-    "WorldTickMixin"
+    "WorldTickMixin",
+    "EntityInterpolationMixin"
   ]
 }
