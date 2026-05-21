@@ -4,20 +4,21 @@ import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import java.util.concurrent.CompletableFuture;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public class ResourceReloadMixin {
 
-    @Inject(
-        method = "reloadResources(Z)Ljava/util/concurrent/CompletableFuture;",
-        at = @At("HEAD")
-    )
-    private void beforeReload(
-            boolean force,
-            CallbackInfoReturnable<CompletableFuture<?>> cir) {
-        // Reload öncesi GC çalıştır — eski texture/model nesnelerini temizle
-        System.gc();
+    @Inject(method = "render", at = @At("HEAD"))
+    private void gcOnLowMemory(CallbackInfo ci) {
+        // Her frame'de memory kontrol et
+        // Bellek %90 doluysa GC tetikle
+        Runtime rt = Runtime.getRuntime();
+        long used = rt.totalMemory() - rt.freeMemory();
+        long max = rt.maxMemory();
+
+        if ((double) used / max > 0.90) {
+            System.gc();
+        }
     }
 }
