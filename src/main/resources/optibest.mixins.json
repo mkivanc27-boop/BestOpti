@@ -11,7 +11,6 @@
     "ClientPlayerTickMixin",
     "ClientWorldMixin",
     "EntityCollisionMixin",
-    "EntityLogicMixin",
     "InputOptimizationMixin",
     "LightingEngineMixin",
     "MemoryManagerMixin",
