@@ -10,12 +10,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Entity.class)
 public class EntityInterpolationMixin {
 
+    // The method signature must exactly match the new 1.21 parameters: Vec3d, float, float.
     @Inject(method = "updateTrackedPositionAndAngles", at = @At("HEAD"), cancellable = true)
-    private void onUpdateTrackedPositionAndAngles(double x, double y, double z, float yaw, float pitch, int smoothSteps, CallbackInfo ci) {
+    private void onUpdateTrackedPositionAndAngles(Vec3d pos, float yaw, float pitch, CallbackInfo ci) {
         Entity self = (Entity) (Object) this;
         
-        // Only update the position with the Vec3d object. No need for the lerp steps setter here.
-        self.updateTrackedPositionAndAngles(new Vec3d(x, y, z), yaw, pitch);
+        // Pass the Vec3d object and floats directly into the method
+        self.updateTrackedPositionAndAngles(pos, yaw, pitch);
         
         ci.cancel();
     }
