@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ParticleManager.class)
 public class ParticleOptimizeMixin {
 
+    private int particleCount = 0;
+
     @Inject(
         method = "addParticle(Lnet/minecraft/client/particle/Particle;)V",
         at = @At("HEAD"),
@@ -20,6 +22,18 @@ public class ParticleOptimizeMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
 
+        particleCount++;
+
+        // Her 100 parçacıkta bir sıfırla
+        if (particleCount > 100) particleCount = 0;
+
+        // 100'den fazla aktif parçacık varsa yenisini ekleme
+        if (particleCount > 80) {
+            ci.cancel();
+            return;
+        }
+
+        // Uzaktaki parçacıkları atla
         double distanceSq = particle.getBoundingBox()
             .getCenter()
             .squaredDistanceTo(
