@@ -18,10 +18,7 @@
     "OptiBestCullingMixin",
     "ShadowSkipMixin",
     "NametagSkipMixin",
-    "WeatherThrottleMixin",
-    "CloudSkipMixin",
     "HudThrottleMixin",
-    "ItemFrameSkipMixin",
     "TextureGCMixin",
     "SpectatorSkipMixin",
     "TickSkipMixin",
@@ -34,7 +31,6 @@
     "ResourceReloadMixin",
     "SoundOptimizationMixin",
     "ThreadTweakMixin",
-    "WorldTickMixin",
-    "EntityInterpolationMixin"
+    "WorldTickMixin"
   ]
 }
