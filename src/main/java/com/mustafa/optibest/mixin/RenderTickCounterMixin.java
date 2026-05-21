@@ -1,27 +1,19 @@
 package com.mustafa.optibest.mixin;
 
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderTickCounter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(GameRenderer.class)
-public class ChunkRenderMixin {
+@Mixin(RenderTickCounter.Dynamic.class)
+public class RenderTickCounterMixin {
 
-    @Inject(method = "render", at = @At("HEAD"))
-    private void optimizeRender(CallbackInfo ci) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client == null || client.world == null) return;
-
-        int fps = client.getCurrentFps();
-        int dist = client.options.getViewDistance().getValue();
-
-        if (fps < 20 && dist > 6) {
-            client.options.getViewDistance().setValue(6);
-        } else if (fps < 30 && dist > 8) {
-            client.options.getViewDistance().setValue(8);
+    @Inject(method = "beginRenderTick(J)I", at = @At("RETURN"), cancellable = true)
+    private void capRenderTicks(long timeMillis, CallbackInfoReturnable<Integer> cir) {
+        int ticks = cir.getReturnValue();
+        if (ticks > 8) {
+            cir.setReturnValue(8);
         }
     }
 }
