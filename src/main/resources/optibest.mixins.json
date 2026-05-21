@@ -26,7 +26,6 @@
     "PathfindingMixin",
     "ResourceReloadMixin",
     "SoundOptimizationMixin",
-    "TextureLoadingMixin",
     "ThreadTweakMixin",
     "WorldTickMixin"
   ]
