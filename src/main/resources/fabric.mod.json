@@ -1,23 +1,31 @@
 {
   "schemaVersion": 1,
-  "id": "optibest",
-  "version": "${version}",
-  "name": "OptiBest",
-  "description": "Fps Arttırıcı Mod (Made By Mustafaisbestpvp On Tiktok)",
-  "authors": ["Mustafa"],
+  "id": "bestopti",
+  "version": "1.0.0",
+  "name": "BestOpti",
+  "description": "Minecraft FPS optimizasyon modu",
+  "authors": ["mkivanc27-boop"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/optibest/icon.png",
+  "environment": "client",
   "entrypoints": {
-    "main": [
-      "com.mustafa.optibest.OptiBest"
+    "client": [
+      "com.mustafa.optibest.BestOptiMod"
+    ],
+    "modmenu": [
+      "com.mustafa.optibest.BestOptiModMenu"
     ]
   },
   "mixins": [
-    "optibest.mixins.json"
+    "bestopti.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.0",
-    "minecraft": "~1.21.8",
-    "midnightlib": "*",
-    "modmenu": "*"
+    "fabricloader": ">=0.16.10",
+    "fabric-api": "*",
+    "minecraft": "~1.21.8"
   },
-  "license": "MIT"
+  "suggests": {
+    "modmenu": "*"
+  }
 }
