@@ -1,5 +1,6 @@
 package com.mustafa.optibest.mixin;
 
+import com.mustafa.optibest.BestOptiConfig;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.MinecraftClient;
@@ -19,21 +20,22 @@ public class ParticleOptimizeMixin {
         cancellable = true
     )
     private void limitParticles(Particle particle, CallbackInfo ci) {
+        BestOptiConfig config = BestOptiConfig.get();
+        if (!config.limitParticles) return;
+
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null) return;
 
         particleCount++;
+        if (particleCount > config.maxParticles) {
+            particleCount = 0;
+        }
 
-        // Her 100 parçacıkta bir sıfırla
-        if (particleCount > 100) particleCount = 0;
-
-        // 100'den fazla aktif parçacık varsa yenisini ekleme
-        if (particleCount > 80) {
+        if (particleCount > config.maxParticles * 0.8) {
             ci.cancel();
             return;
         }
 
-        // Uzaktaki parçacıkları atla
         double distanceSq = particle.getBoundingBox()
             .getCenter()
             .squaredDistanceTo(
