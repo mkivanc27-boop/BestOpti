@@ -8,12 +8,15 @@ group = "com.mustafa.optibest"
 repositories {
     mavenCentral()
     maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://maven.terraformersmc.com/releases" }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:1.21.8"
     mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
     modImplementation "net.fabricmc:fabric-loader:0.16.10"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.119.5+1.21.8"
+    modCompileOnly "com.terraformersmc:modmenu:13.0.0"
 }
 
 java {
