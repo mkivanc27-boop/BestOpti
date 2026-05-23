@@ -18,7 +18,7 @@
     ]
   },
   "mixins": [
-    "bestopti.mixins.json"
+    "optibest.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.10",
