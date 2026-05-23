@@ -1,6 +1,5 @@
 package com.mustafa.optibest.mixin;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.world.chunk.light.LightingProvider;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,14 +15,16 @@ public class LightingEngineMixin {
     private void throttleLightUpdates(CallbackInfoReturnable<Integer> cir) {
         lightUpdateCounter++;
 
-        // Her 3 frame'de bir ışık güncellemesi yap
-        // Görsel fark minimum, CPU kazanımı yüksek
-        if (lightUpdateCounter % 3 != 0) {
-            cir.setReturnValue(0); // Bu frame'i atla
-            return;
-        }
+        // Sadece çok yüksek pending update varsa throttle yap
+        // Normal oyunda (blok kırma, patlama) hiç atlanmaz
+        int pending = cir.getReturnValue() != null ? cir.getReturnValue() : 0;
 
-        // Her 3 frame'de bir normal çalış
-        lightUpdateCounter = 0;
+        // 500'den az pending update varsa → her zaman çalış
+        if (pending < 500) return;
+
+        // 500+ pending varsa → her 2 frame'de bir atla (spam durumu)
+        if (lightUpdateCounter % 2 != 0) {
+            cir.setReturnValue(0);
+        }
     }
 }
